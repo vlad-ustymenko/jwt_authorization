@@ -5,8 +5,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import router from './router/index.js'
 
-const app = express()
 dotenv.config()
+const app = express()
 
 const PORT = process.env.PORT || 5000
 
