@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import tokenModel from '../models/token-model.js'
 
 class TokenService {
-  generateToken(payload) {
+  generateTokens(payload) {
     const accesToken = jwt.sign(payload, process.env.JWT_ACCES_SECRET, {
       expiresIn: '15s',
     })
@@ -10,6 +10,24 @@ class TokenService {
       expiresIn: '30d',
     })
     return { accesToken, refreshToken }
+  }
+
+  validateAccesToken(token) {
+    try {
+      const userData = jwt.verify(token, process.env.JWT_ACCES_SECRET)
+      return userData
+    } catch (e) {
+      return null
+    }
+  }
+
+  validateRefreshToken(token) {
+    try {
+      const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+      return userData
+    } catch (e) {
+      return null
+    }
   }
 
   async saveToken(userId, refreshToken) {
@@ -23,6 +41,14 @@ class TokenService {
       refreshToken,
     })
     return token
+  }
+  async removeToken(refreshToken) {
+    const tokenData = await tokenModel.deleteOne({ refreshToken })
+    return tokenData
+  }
+  async findToken(refreshToken) {
+    const tokenData = await tokenModel.findOne({ refreshToken })
+    return tokenData
   }
 }
 
