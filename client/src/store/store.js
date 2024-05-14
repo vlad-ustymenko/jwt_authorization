@@ -41,7 +41,7 @@ export default class Store {
     try {
       const response = await AuthService.registration(email, password)
       console.log(response)
-      localStorage.setItem('token', response.data.accesToken)
+      localStorage.setItem('token', response.data.accessToken)
       this.setAuth(true)
       this.setUser(response.data.user)
     } catch (error) {
@@ -67,7 +67,7 @@ export default class Store {
         withCredentials: true,
       })
       console.log(response)
-      localStorage.setItem('token', response.data.accesToken)
+      localStorage.setItem('token', response.data.accessToken)
       this.setAuth(true)
       this.setUser(response.data.user)
     } catch (error) {

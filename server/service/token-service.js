@@ -3,16 +3,16 @@ import tokenModel from '../models/token-model.js'
 
 class TokenService {
   generateTokens(payload) {
-    const accesToken = jwt.sign(payload, process.env.JWT_ACCES_SECRET, {
-      expiresIn: '30m',
+    const accessToken = jwt.sign(payload, process.env.JWT_ACCES_SECRET, {
+      expiresIn: '15s',
     })
     const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
-      expiresIn: '30d',
+      expiresIn: '30s',
     })
-    return { accesToken, refreshToken }
+    return { accessToken, refreshToken }
   }
 
-  validateAccesToken(token) {
+  validateaccessToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_ACCES_SECRET)
       return userData

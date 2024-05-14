@@ -7,12 +7,12 @@ export default function (req, res, next) {
     if (!authorizationHeader) {
       return next(ApiError.UnuatorizedError())
     }
-    const accesToken = authorizationHeader.split(' ')[1]
-    if (!accesToken) {
+    const accessToken = authorizationHeader.split(' ')[1]
+    if (!accessToken) {
       return next(ApiError.UnuatorizedError())
     }
 
-    const userData = tokenService.validateAccesToken(accesToken)
+    const userData = tokenService.validateaccessToken(accessToken)
     if (!userData) {
       return next(ApiError.UnuatorizedError())
     }
